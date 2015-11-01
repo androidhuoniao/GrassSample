@@ -1,8 +1,5 @@
 package com.grass;
 
-import com.grass.fragment.RecyclerViewFragment;
-import com.grass.fragment.RecyclerViewFragment.OnFragmentInteractionListener;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,8 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.grass.fragment.RecyclerViewFragment;
+import com.grass.fragment.RecyclerViewFragment.OnFragmentInteractionListener;
+import com.grass.model.Vehicle;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnFragmentInteractionListener {
+
+    Vehicle vehicle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,11 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().add(R.id.contentContainer, RecyclerViewFragment.newInstance()).commit();
+
+//        VehicleComponent component = DaggerVehicleComponent.builder().vehicleModule(new VehicleModule()).build();
+//        vehicle = component.provideVehicle();
+//
+//        Toast.makeText(this, String.valueOf(vehicle.getSpeed()), Toast.LENGTH_SHORT).show();
 
     }
 
