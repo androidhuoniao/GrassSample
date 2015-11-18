@@ -35,4 +35,6 @@ dependencies {
     compile 'com.google.dagger:dagger:2.1-SNAPSHOT'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'me.xiaopan:assemblyadapter:1.0.0'
+
+    compile 'com.github.zhaokaiqiang.klog:library:1.1.0'
 }
