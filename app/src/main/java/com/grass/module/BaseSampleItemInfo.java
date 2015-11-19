@@ -5,8 +5,14 @@ package com.grass.module;
  */
 public class BaseSampleItemInfo<T> {
     private String mDescription;
-    private T mSample;
+    private Class<T> mSample;
     private String mName;
+
+    public BaseSampleItemInfo(String name, String des, Class<T> sample) {
+        mName = name;
+        mDescription = des;
+        mSample = sample;
+    }
 
     public String getDescription() {
         return mDescription;
@@ -16,11 +22,11 @@ public class BaseSampleItemInfo<T> {
         mDescription = description;
     }
 
-    public T getSample() {
+    public Class<T> getSample() {
         return mSample;
     }
 
-    public void setSample(T sample) {
+    public void setSample(Class<T> sample) {
         mSample = sample;
     }
 

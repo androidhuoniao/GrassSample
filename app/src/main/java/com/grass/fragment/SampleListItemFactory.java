@@ -1,6 +1,7 @@
 package com.grass.fragment;
 
 import com.grass.R;
+import com.grass.event.EventOfChangeFragment;
 import com.grass.module.BaseSampleItemInfo;
 
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import me.xiaopan.assemblyadapter.AssemblyRecyclerItem;
 import me.xiaopan.assemblyadapter.AssemblyRecyclerItemFactory;
 
@@ -17,6 +19,9 @@ import me.xiaopan.assemblyadapter.AssemblyRecyclerItemFactory;
  * Created by grass on 15/11/18.
  */
 public class SampleListItemFactory extends AssemblyRecyclerItemFactory<SampleListItemFactory.SampleListItem> {
+
+    public SampleListItemFactory(Context context) {
+    }
 
     @Override
     public Class<?> getBeanClass() {
@@ -31,10 +36,12 @@ public class SampleListItemFactory extends AssemblyRecyclerItemFactory<SampleLis
     public static class SampleListItem extends AssemblyRecyclerItem<BaseSampleItemInfo, SampleListItemFactory> {
 
         @Bind(R.id.smapleName)
-        private TextView mSampleNameTv;
+        TextView mSampleNameTv;
 
         @Bind(R.id.sampleDescription)
-        private TextView mSampleDesTv;
+        TextView mSampleDesTv;
+
+        View mTopView;
 
         protected SampleListItem(ViewGroup parent, SampleListItemFactory factory) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sample, parent, false),
@@ -44,11 +51,18 @@ public class SampleListItemFactory extends AssemblyRecyclerItemFactory<SampleLis
         @Override
         protected void onFindViews(View convertView) {
             ButterKnife.bind(this, convertView);
+            mTopView = convertView;
         }
 
         @Override
         protected void onConfigViews(Context context) {
             // ... 你可以在这里注册一些点击事件并根据需要设置View的大小
+            mTopView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new EventOfChangeFragment(getData()));
+                }
+            });
         }
 
         @Override
@@ -58,6 +72,7 @@ public class SampleListItemFactory extends AssemblyRecyclerItemFactory<SampleLis
 
         }
     }
+
 }
 
 

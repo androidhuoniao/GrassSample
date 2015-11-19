@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/smapleName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:gravity="left|center_vertical"
         android:text="使用webView"
         android:textSize="24sp"
@@ -19,9 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:gravity="left|center_vertical"
+        android:gravity="left|top"
         android:lines="2"
-        android:text="这个webview还不错，希望是个好例子,fjasdjflkajdklfjkladsjflkjalksdjflkadjsfkjasdlkfjklajlkasdjklfjakls"
-        android:typeface="sans" />
+        android:text="这个webview还不错，希望是个好例子,fjasdjflkajdklfjkladsjflkjalksdjflkadjsfkjasdlkfjklajlkasdjklfjakls" />
 
 </LinearLayout>

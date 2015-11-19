@@ -1,6 +1,7 @@
 package com.grass.fragment;
 
 import com.grass.R;
+import com.grass.module.SamplesStore;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,12 +25,15 @@ public class SampleListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recycle_view, container, false);
         ButterKnife.bind(this, view);
+        AssemblyRecyclerAdapter adapter = new AssemblyRecyclerAdapter(SamplesStore.getFragmentSamples());
+        adapter.addItemFactory(new SampleListItemFactory(getActivity()));
+        adapter.disableLoadMore();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
-        AssemblyRecyclerAdapter adapter = new AssemblyRecyclerAdapter(null);
-        adapter.addItemFactory(new SampleListItemFactory());
+        mRecyclerView.setAdapter(adapter);
         return view;
     }
+
 
 
 }
