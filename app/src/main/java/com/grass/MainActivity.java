@@ -1,10 +1,15 @@
 package com.grass;
 
+import java.util.ArrayList;
+
 import com.grass.event.EventOfChangeFragment;
 import com.grass.fragment.RecyclerViewFragment.OnFragmentInteractionListener;
 import com.grass.fragment.SampleListFragment;
+import com.grass.mediastore.ImageItemInfo;
+import com.grass.mediastore.ImageStore;
 import com.grass.model.Vehicle;
 import com.grass.module.BaseSampleItemInfo;
+import com.socks.library.KLog;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +28,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import de.greenrobot.event.EventBus;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener {
@@ -57,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
-//        fm.beginTransaction().add(R.id.contentContainer, RecyclerViewFragment.newInstance()).commit();
+        //        fm.beginTransaction().add(R.id.contentContainer, RecyclerViewFragment.newInstance()).commit();
         mFragmentManager.beginTransaction().add(R.id.contentContainer, new SampleListFragment()).commit();
 
         //        VehicleComponent component = DaggerVehicleComponent.builder().vehicleModule(new VehicleModule())
@@ -65,6 +75,45 @@ public class MainActivity extends AppCompatActivity
         //        vehicle = component.provideVehicle();
         //
         //        Toast.makeText(this, String.valueOf(vehicle.getSpeed()), Toast.LENGTH_SHORT).show();
+        //        ImageStore.queryImages(this);
+        loadImages();
+
+    }
+
+    private void loadImages() {
+        Observable<ArrayList<ImageItemInfo>> observable = Observable.create(
+                new Observable.OnSubscribe<ArrayList<ImageItemInfo>>() {
+
+                    @Override
+                    public void call(Subscriber<? super ArrayList<ImageItemInfo>> subscriber) {
+                        KLog.i("rx","call work in "+Thread.currentThread().getName());
+                        ArrayList<ImageItemInfo> list = ImageStore.queryImages(MainActivity.this);
+                        if (list != null && !list.isEmpty()) {
+                            subscriber.onNext(list);
+                            subscriber.onCompleted();
+                        } else {
+                            subscriber.onError(new IllegalAccessException("没有数据"));
+                        }
+
+                    }
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<ArrayList<ImageItemInfo>>() {
+            @Override
+            public void onCompleted() {
+                KLog.i("rx","onCompleted "+Thread.currentThread().getName());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                KLog.i("rx","onError");
+            }
+
+            @Override
+            public void onNext(ArrayList<ImageItemInfo> imageItemInfos) {
+                KLog.i("rx","onNext: "+imageItemInfos.size()+" "+Thread.currentThread().getName());
+            }
+        });
 
     }
 
