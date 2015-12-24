@@ -46,7 +46,7 @@ public class ImageStore {
                 Images.Media.MIME_TYPE
         };
         Cursor cursor = MediaStore.Images.Media.query(context.getContentResolver(),
-                Images.Media.INTERNAL_CONTENT_URI, proj);
+                Images.Media.EXTERNAL_CONTENT_URI, proj);
         ArrayList<ImageItemInfo> list = new ArrayList<>(cursor.getCount());
         KLog.i("thumb", "image count: " + cursor.getCount());
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
@@ -65,7 +65,7 @@ public class ImageStore {
                     .getColumnIndex(Images.Media.MINI_THUMB_MAGIC));
             String miniType = cursor.getString(cursor
                     .getColumnIndex(Images.Media.MIME_TYPE));
-            ImageItemInfo info = new ImageItemInfo(origid, title);
+            ImageItemInfo info = new ImageItemInfo(origid, path);
             list.add(info);
         }
         cursor.close();

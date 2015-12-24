@@ -12,7 +12,7 @@ import android.view.View;
 /**
  * Created by grass on 10/31/15.
  */
-public class DividerItemDecoration extends RecyclerView.ItemDecoration {
+public class GrassDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{
             android.R.attr.listDivider
@@ -26,7 +26,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private int mOrientation;
 
-    public DividerItemDecoration(Context context, int orientation) {
+    public GrassDividerItemDecoration(Context context, int orientation) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();

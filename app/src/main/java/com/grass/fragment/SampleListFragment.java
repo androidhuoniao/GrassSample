@@ -29,7 +29,8 @@ public class SampleListFragment extends Fragment {
         adapter.addItemFactory(new SampleListItemFactory(getActivity()));
         adapter.disableLoadMore();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.addItemDecoration(new GrassDividerItemDecoration(getContext(),
+                GrassDividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setAdapter(adapter);
         return view;
     }

@@ -1,0 +1,136 @@
+package com.grass.fragment;
+
+import java.util.ArrayList;
+
+import com.bumptech.glide.Glide;
+import com.grass.R;
+import com.grass.mediastore.ImageItemInfo;
+import com.grass.mediastore.ImageStore;
+import com.karumi.dividers.DividerBuilder;
+import com.karumi.dividers.DividerItemDecoration;
+import com.karumi.dividers.Layer;
+import com.socks.library.KLog;
+
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+public class PictureGridFragment extends Fragment {
+
+    @Bind(R.id.recycleView)
+    RecyclerView mRecyclerView;
+
+    private PictureAdapter mPictureAdapter;
+
+    public PictureGridFragment() {
+        // Required empty public constructor
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_picture_grid, null);
+        ButterKnife.bind(this, view);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false));
+        Drawable blueDrawable = getResources().getDrawable(R.drawable.blue_grid_divider);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(new Layer(DividerBuilder.get().with
+                (blueDrawable).build()));
+        mRecyclerView.addItemDecoration(itemDecoration);
+        mRecyclerView.setHasFixedSize(true);
+        PictureAdapter adapter = new PictureAdapter();
+        mPictureAdapter = adapter;
+        mRecyclerView.setAdapter(adapter);
+        loadPictures();
+        return view;
+    }
+
+    private void loadPictures() {
+        Observable<ArrayList<ImageItemInfo>> observable = Observable.create(
+                new Observable.OnSubscribe<ArrayList<ImageItemInfo>>() {
+                    @Override
+                    public void call(Subscriber<? super ArrayList<ImageItemInfo>> subscriber) {
+                        KLog.i("rx", "call work in " + Thread.currentThread().getName());
+                        ArrayList<ImageItemInfo> list = ImageStore.queryImages(getActivity());
+                        if (list != null && !list.isEmpty()) {
+                            subscriber.onNext(list);
+                            subscriber.onCompleted();
+                        } else {
+                            subscriber.onError(new IllegalAccessException("没有数据"));
+                        }
+                    }
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<ArrayList<ImageItemInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNext(ArrayList<ImageItemInfo> imageItemInfos) {
+                if (null != imageItemInfos && !imageItemInfos.isEmpty()) {
+                    mPictureAdapter.setData(imageItemInfos);
+                }
+            }
+        });
+    }
+
+    class PictureAdapter extends RecyclerView.Adapter<PictureHolder> {
+
+        private ArrayList<ImageItemInfo> mList;
+
+        @Override
+        public PictureHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            PictureHolder holder = new PictureHolder(View.inflate(getActivity(), R.layout.item_picture, null));
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(PictureHolder holder, int position) {
+            ImageItemInfo info = mList.get(position);
+            KLog.i("pic",info.getPath());
+            Glide.with(PictureGridFragment.this).load(info.getPath()).into(holder.mPicImg);
+        }
+
+        @Override
+        public int getItemCount() {
+            return null == mList ? 0 : mList.size();
+        }
+
+        public void setData(ArrayList<ImageItemInfo> list) {
+            mList = list;
+            notifyDataSetChanged();
+        }
+    }
+
+    class PictureHolder extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.pictureImg)
+        ImageView mPicImg;
+
+        public PictureHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+}

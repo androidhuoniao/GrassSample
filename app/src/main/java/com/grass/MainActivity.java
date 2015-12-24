@@ -8,7 +8,7 @@ import com.grass.fragment.SampleListFragment;
 import com.grass.mediastore.ImageItemInfo;
 import com.grass.mediastore.ImageStore;
 import com.grass.model.Vehicle;
-import com.grass.module.BaseSampleItemInfo;
+import com.grass.model.BaseSampleItemInfo;
 import com.socks.library.KLog;
 
 import android.net.Uri;
@@ -24,6 +24,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,7 @@ import rx.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener {
 
+    private static final String TAG = "test";
     Vehicle vehicle;
     private FragmentManager mFragmentManager;
 
@@ -67,15 +69,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
-        //        fm.beginTransaction().add(R.id.contentContainer, RecyclerViewFragment.newInstance()).commit();
         mFragmentManager.beginTransaction().add(R.id.contentContainer, new SampleListFragment()).commit();
-
-        //        VehicleComponent component = DaggerVehicleComponent.builder().vehicleModule(new VehicleModule())
-        // .build();
-        //        vehicle = component.provideVehicle();
-        //
-        //        Toast.makeText(this, String.valueOf(vehicle.getSpeed()), Toast.LENGTH_SHORT).show();
-        //        ImageStore.queryImages(this);
         loadImages();
 
     }
@@ -86,7 +80,7 @@ public class MainActivity extends AppCompatActivity
 
                     @Override
                     public void call(Subscriber<? super ArrayList<ImageItemInfo>> subscriber) {
-                        KLog.i("rx","call work in "+Thread.currentThread().getName());
+                        KLog.i("rx", "call work in " + Thread.currentThread().getName());
                         ArrayList<ImageItemInfo> list = ImageStore.queryImages(MainActivity.this);
                         if (list != null && !list.isEmpty()) {
                             subscriber.onNext(list);
@@ -101,30 +95,20 @@ public class MainActivity extends AppCompatActivity
         observable.subscribe(new Observer<ArrayList<ImageItemInfo>>() {
             @Override
             public void onCompleted() {
-                KLog.i("rx","onCompleted "+Thread.currentThread().getName());
+                KLog.i("rx", "onCompleted " + Thread.currentThread().getName());
             }
 
             @Override
             public void onError(Throwable e) {
-                KLog.i("rx","onError");
+                KLog.i("rx", "onError");
             }
 
             @Override
             public void onNext(ArrayList<ImageItemInfo> imageItemInfos) {
-                KLog.i("rx","onNext: "+imageItemInfos.size()+" "+Thread.currentThread().getName());
+                KLog.i("rx", "onNext: " + imageItemInfos.size() + " " + Thread.currentThread().getName());
             }
         });
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
@@ -192,6 +176,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void changeFragment(BaseSampleItemInfo<Fragment> info) {
+        for (int i = 0; i < 10; i++) {
+            test(i);
+            Log.i(TAG, "changeFragment: " + i);
+        }
+        if (info == null) {
+        }
         try {
             FragmentTransaction ft = mFragmentManager.beginTransaction();
             ft.replace(R.id.contentContainer, info.getSample().newInstance());
@@ -202,5 +192,19 @@ public class MainActivity extends AppCompatActivity
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private String test(int i) {
+        return "grass" + i;
     }
 }

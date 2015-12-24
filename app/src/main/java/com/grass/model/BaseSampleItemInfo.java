@@ -1,4 +1,4 @@
-package com.grass.module;
+package com.grass.model;
 
 /**
  * Created by grass on 15/11/18.

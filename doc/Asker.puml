@@ -1,0 +1,24 @@
+@startuml
+'default
+top to bottom direction
+
+:提问者: as asker
+(采纳TA) as consultAction
+(感谢TA) as thankAction
+(追问TA) as appendAskAction
+(已采纳) as hasConsulted
+(已感谢) as hasThanked
+asker --> consultAction
+asker --> thankAction
+'asker --> hasThanked
+'asker --> hasConsulted
+asker --> appendAskAction
+consultAction --> hasConsulted
+thankAction --> hasThanked
+
+newpage
+:浏览者: as browser
+(回答) as answerAction
+browser -> answerAction
+answerAction -> asker
+@enduml

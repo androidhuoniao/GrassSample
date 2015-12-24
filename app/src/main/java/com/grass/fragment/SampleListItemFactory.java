@@ -1,8 +1,10 @@
 package com.grass.fragment;
 
+import java.util.ArrayList;
+
 import com.grass.R;
 import com.grass.event.EventOfChangeFragment;
-import com.grass.module.BaseSampleItemInfo;
+import com.grass.model.BaseSampleItemInfo;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ public class SampleListItemFactory extends AssemblyRecyclerItemFactory<SampleLis
 
     @Override
     public Class<?> getBeanClass() {
+        ArrayList<Object> objectArrayList = new ArrayList<>();
         return BaseSampleItemInfo.class;
     }
 
@@ -43,7 +46,7 @@ public class SampleListItemFactory extends AssemblyRecyclerItemFactory<SampleLis
 
         View mTopView;
 
-        protected SampleListItem(ViewGroup parent, SampleListItemFactory factory) {
+        protected SampleListItem(ViewGroup parent, SampleListItemFactory factory){
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sample, parent, false),
                     factory);
         }

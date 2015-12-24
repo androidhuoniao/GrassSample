@@ -59,7 +59,7 @@ public class RecyclerViewFragment extends Fragment {
         ButterKnife.bind(this, view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(new RecyclerViewAdatper());
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.addItemDecoration(new GrassDividerItemDecoration(getContext(), GrassDividerItemDecoration.VERTICAL_LIST));
 
         return view;
     }
