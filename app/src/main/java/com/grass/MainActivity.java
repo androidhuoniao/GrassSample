@@ -3,15 +3,11 @@ package com.grass;
 import java.util.ArrayList;
 
 import com.grass.event.EventOfChangeFragment;
-import com.grass.fragment.RecyclerViewFragment.OnFragmentInteractionListener;
-import com.grass.fragment.SampleListFragment;
 import com.grass.mediastore.ImageItemInfo;
 import com.grass.mediastore.ImageStore;
-import com.grass.model.Vehicle;
 import com.grass.model.BaseSampleItemInfo;
 import com.socks.library.KLog;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -36,15 +32,15 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "test";
-    Vehicle vehicle;
     private FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("debug", "debug: " + BuildConfig.DEBUG);
         EventBus.getDefault().register(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -69,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
-        mFragmentManager.beginTransaction().add(R.id.contentContainer, new SampleListFragment()).commit();
+//        mFragmentManager.beginTransaction().add(R.id.contentContainer, new SampleListFragment()).commit();
         loadImages();
 
     }
@@ -158,10 +154,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 
     @Override
     protected void onDestroy() {

@@ -6,12 +6,8 @@ import com.bumptech.glide.Glide;
 import com.grass.R;
 import com.grass.mediastore.ImageItemInfo;
 import com.grass.mediastore.ImageStore;
-import com.karumi.dividers.DividerBuilder;
-import com.karumi.dividers.DividerItemDecoration;
-import com.karumi.dividers.Layer;
 import com.socks.library.KLog;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,10 +43,6 @@ public class PictureGridFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_picture_grid, null);
         ButterKnife.bind(this, view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false));
-        Drawable blueDrawable = getResources().getDrawable(R.drawable.blue_grid_divider);
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(new Layer(DividerBuilder.get().with
-                (blueDrawable).build()));
-        mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setHasFixedSize(true);
         PictureAdapter adapter = new PictureAdapter();
         mPictureAdapter = adapter;

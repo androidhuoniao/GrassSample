@@ -1,7 +1,6 @@
 package com.grass.fragment;
 
 import com.grass.R;
-import com.grass.recyclerview.HorizontalRecyclerViewDivider;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,8 +32,6 @@ public class HorizontalRecyclerViewFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(new HoriAdapter());
-        mRecyclerView.addItemDecoration(new HorizontalRecyclerViewDivider(getActivity().getDrawable(
-                R.drawable.recycler_view_divider)));
         return view;
     }
 
