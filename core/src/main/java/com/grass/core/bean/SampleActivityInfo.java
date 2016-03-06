@@ -1,4 +1,4 @@
-package com.grass.model;
+package com.grass.core.bean;
 
 /**
  * Created by grass on 15/12/24.

@@ -2,10 +2,14 @@ package com.grass;
 
 import java.util.ArrayList;
 
-import com.grass.event.EventOfChangeFragment;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import com.grass.core.event.EventOfChangeFragment;
 import com.grass.mediastore.ImageItemInfo;
 import com.grass.mediastore.ImageStore;
-import com.grass.model.BaseSampleItemInfo;
+import com.grass.core.bean.BaseSampleItemInfo;
+import com.grass.recyclerview.fragment.SampleListFragment;
 import com.socks.library.KLog;
 
 import android.os.Bundle;
@@ -24,7 +28,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import de.greenrobot.event.EventBus;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -41,7 +44,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("debug", "debug: " + BuildConfig.DEBUG);
-        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,9 +67,21 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
-//        mFragmentManager.beginTransaction().add(R.id.contentContainer, new SampleListFragment()).commit();
+        mFragmentManager.beginTransaction().add(R.id.contentContainer, new SampleListFragment()).commit();
         loadImages();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     private void loadImages() {
@@ -135,9 +149,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camara) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_recyclerview) {
+            jumpTopRecyclerViewFragment();
+        } else if (id == R.id.nav_dagger2) {
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -154,7 +168,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -163,8 +176,15 @@ public class MainActivity extends AppCompatActivity
 
     //============事件处理======================
 
-    public void onEvent(EventOfChangeFragment event) {
+    @Subscribe
+    public void onEventOfChangeFragment(EventOfChangeFragment event) {
         changeFragment(event.getInfo());
+    }
+
+    private void jumpTopRecyclerViewFragment() {
+        Fragment fragment = mFragmentManager.findFragmentByTag("RecyclerView");
+        mFragmentManager.beginTransaction().add(R.id.contentContainer, new SampleListFragment(), "RecyclerView")
+                .commit();
     }
 
     public void changeFragment(BaseSampleItemInfo<Fragment> info) {

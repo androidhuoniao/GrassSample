@@ -1,6 +1,6 @@
-package com.grass.event;
+package com.grass.core.event;
 
-import com.grass.model.BaseSampleItemInfo;
+import com.grass.core.bean.BaseSampleItemInfo;
 
 import android.support.v4.app.Fragment;
 

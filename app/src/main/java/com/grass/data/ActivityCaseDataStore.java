@@ -2,7 +2,7 @@ package com.grass.data;
 
 import java.util.ArrayList;
 
-import com.grass.model.SampleActivityInfo;
+import com.grass.core.bean.SampleActivityInfo;
 
 /**
  * Created by grass on 15/12/20.
