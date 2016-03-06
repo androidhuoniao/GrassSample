@@ -1,10 +1,12 @@
 package com.grass.recyclerview.dummy;
 
 import com.grass.recyclerview.R;
+import com.grass.recyclerview.decoration.VerticalListDivider;
 import com.grass.recyclerview.dummy.dummy.DummyContent;
 import com.grass.recyclerview.dummy.dummy.DummyContent.DummyItem;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -51,6 +53,8 @@ public class BookFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                Drawable dividerDrawable = getResources().getDrawable(R.drawable.vertical_divider);
+                recyclerView.addItemDecoration(new VerticalListDivider(dividerDrawable));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }

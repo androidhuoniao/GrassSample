@@ -7,6 +7,7 @@ import com.grass.recyclerview.dummy.BookFragment.OnListFragmentInteractionListen
 import com.grass.recyclerview.dummy.dummy.DummyContent.DummyItem;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class DummyRecyclerViewAdapter extends RecyclerView.Adapter<DummyRecycler
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.i("deco", "onCreateViewHolder: ");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_book, parent, false);
         return new ViewHolder(view);
@@ -36,6 +38,8 @@ public class DummyRecyclerViewAdapter extends RecyclerView.Adapter<DummyRecycler
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        Log.i("deco", "onBindViewHolder: ");
+
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
