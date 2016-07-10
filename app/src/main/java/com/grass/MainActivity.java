@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import com.grass.core.bean.BaseSampleItemInfo;
 import com.grass.core.event.EventOfChangeFragment;
+import com.grass.fragment.MainSampleListFragment;
 import com.grass.mediastore.ImageItemInfo;
 import com.grass.mediastore.ImageStore;
-import com.grass.core.bean.BaseSampleItemInfo;
 import com.grass.recyclerview.fragment.SampleListFragment;
-import com.socks.library.KLog;
+import com.orhanobut.logger.Logger;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("debug", "debug: " + BuildConfig.DEBUG);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
-        mFragmentManager.beginTransaction().add(R.id.contentContainer, new SampleListFragment()).commit();
+        mFragmentManager.beginTransaction().add(R.id.contentContainer, new MainSampleListFragment()).commit();
         loadImages();
     }
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 
                     @Override
                     public void call(Subscriber<? super ArrayList<ImageItemInfo>> subscriber) {
-                        KLog.i("rx", "call work in " + Thread.currentThread().getName());
+                        Logger.i("rx", "call work in " + Thread.currentThread().getName());
                         ArrayList<ImageItemInfo> list = ImageStore.queryImages(MainActivity.this);
                         if (list != null && !list.isEmpty()) {
                             subscriber.onNext(list);
@@ -105,17 +105,17 @@ public class MainActivity extends AppCompatActivity
         observable.subscribe(new Observer<ArrayList<ImageItemInfo>>() {
             @Override
             public void onCompleted() {
-                KLog.i("rx", "onCompleted " + Thread.currentThread().getName());
+                Logger.i("rx", "onCompleted " + Thread.currentThread().getName());
             }
 
             @Override
             public void onError(Throwable e) {
-                KLog.i("rx", "onError");
+                Logger.i("rx", "onError");
             }
 
             @Override
             public void onNext(ArrayList<ImageItemInfo> imageItemInfos) {
-                KLog.i("rx", "onNext: " + imageItemInfos.size() + " " + Thread.currentThread().getName());
+                Logger.i("rx", "onNext: " + imageItemInfos.size() + " " + Thread.currentThread().getName());
             }
         });
 

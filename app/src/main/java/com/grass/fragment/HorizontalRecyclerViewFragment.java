@@ -11,12 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class HorizontalRecyclerViewFragment extends Fragment {
 
-    @Bind(R.id.recycleView)
     RecyclerView mRecyclerView;
 
     public HorizontalRecyclerViewFragment() {
@@ -27,7 +24,7 @@ public class HorizontalRecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_horizontal_recyclerview, container, false);
-        ButterKnife.bind(this, view);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -56,12 +53,11 @@ public class HorizontalRecyclerViewFragment extends Fragment {
 
     class HoriViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.contentTv)
         TextView mContentTv;
 
         public HoriViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            mContentTv = (TextView) itemView.findViewById(R.id.contentTv);
         }
     }
 }

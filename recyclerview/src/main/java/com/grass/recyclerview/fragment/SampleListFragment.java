@@ -23,6 +23,7 @@ public class SampleListFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public SampleListFragment() {
+
     }
 
     @SuppressWarnings("unused")

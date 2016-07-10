@@ -6,7 +6,6 @@ import com.bumptech.glide.Glide;
 import com.grass.R;
 import com.grass.mediastore.ImageItemInfo;
 import com.grass.mediastore.ImageStore;
-import com.socks.library.KLog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,8 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -28,7 +25,6 @@ import rx.schedulers.Schedulers;
 
 public class PictureGridFragment extends Fragment {
 
-    @Bind(R.id.recycleView)
     RecyclerView mRecyclerView;
 
     private PictureAdapter mPictureAdapter;
@@ -41,7 +37,7 @@ public class PictureGridFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_picture_grid, null);
-        ButterKnife.bind(this, view);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         PictureAdapter adapter = new PictureAdapter();
@@ -56,7 +52,6 @@ public class PictureGridFragment extends Fragment {
                 new Observable.OnSubscribe<ArrayList<ImageItemInfo>>() {
                     @Override
                     public void call(Subscriber<? super ArrayList<ImageItemInfo>> subscriber) {
-                        KLog.i("rx", "call work in " + Thread.currentThread().getName());
                         ArrayList<ImageItemInfo> list = ImageStore.queryImages(getActivity());
                         if (list != null && !list.isEmpty()) {
                             subscriber.onNext(list);
@@ -100,7 +95,6 @@ public class PictureGridFragment extends Fragment {
         @Override
         public void onBindViewHolder(PictureHolder holder, int position) {
             ImageItemInfo info = mList.get(position);
-            KLog.i("pic",info.getPath());
             Glide.with(PictureGridFragment.this).load(info.getPath()).into(holder.mPicImg);
         }
 
@@ -117,12 +111,11 @@ public class PictureGridFragment extends Fragment {
 
     class PictureHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.pictureImg)
         ImageView mPicImg;
 
         public PictureHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            mPicImg = (ImageView) itemView.findViewById(R.id.pictureImg);
         }
     }
 }

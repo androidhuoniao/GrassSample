@@ -2,8 +2,6 @@ package com.grass.mediastore;
 
 import java.util.ArrayList;
 
-import com.socks.library.KLog;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
@@ -23,14 +21,12 @@ public class ImageStore {
         Cursor cursor = MediaStore.Images.Thumbnails.queryMiniThumbnails(context.getContentResolver(),
                 MediaStore.Images.Thumbnails
                         .INTERNAL_CONTENT_URI, MediaStore.Images.Thumbnails.MINI_KIND, THUMBNAIL_PROJECTION);
-        KLog.i("thumb", "count: " + cursor.getCount());
         ArrayList<ThumbnailItemInfo> list = new ArrayList<>(cursor.getCount());
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
                 .moveToNext()) {
             int thumbId = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Thumbnails._ID));
             int imageId = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Thumbnails.IMAGE_ID));
             String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.DATA));
-            KLog.i("thumb", "path: " + path);
             ThumbnailItemInfo info = new ThumbnailItemInfo(thumbId, imageId, path);
             list.add(info);
         }
@@ -48,7 +44,6 @@ public class ImageStore {
         Cursor cursor = MediaStore.Images.Media.query(context.getContentResolver(),
                 Images.Media.EXTERNAL_CONTENT_URI, proj);
         ArrayList<ImageItemInfo> list = new ArrayList<>(cursor.getCount());
-        KLog.i("thumb", "image count: " + cursor.getCount());
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
                 .moveToNext()) {
             long origid = cursor.getLong(cursor

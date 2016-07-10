@@ -1,5 +1,7 @@
 package com.grass.core.bean;
 
+import com.grass.core.base.SampeType;
+
 /**
  * Created by grass on 15/11/18.
  */
@@ -8,10 +10,6 @@ public class BaseSampleItemInfo<T> {
     private Class<T> mSample;
     private String mName;
     private SampeType mType;
-
-    public  enum SampeType {
-        ACTIVITY, FRAGMENT;
-    }
 
     public BaseSampleItemInfo(SampeType type, String name, String des, Class<T> sample) {
         mType = type;
