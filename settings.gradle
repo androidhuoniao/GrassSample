@@ -1,1 +1,1 @@
-include ':app', ':recyclerview', ':dagger2', ':core'
+include ':app', ':recyclerview',  ':core'
