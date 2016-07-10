@@ -30,7 +30,7 @@ public class DummyRecyclerViewAdapter extends RecyclerView.Adapter<DummyRecycler
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i("deco", "onCreateViewHolder: ");
+        Log.i("deco", "createViewHolder: ");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_book, parent, false);
         return new ViewHolder(view);

@@ -23,8 +23,13 @@ public abstract class BaseVertialListFragment extends Fragment {
         Context context = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        initRecycleView(recyclerView);
         initData(recyclerView);
         return view;
+    }
+
+    public void initRecycleView(RecyclerView recyclerView) {
+
     }
 
     public abstract void initData(RecyclerView recyclerView);
