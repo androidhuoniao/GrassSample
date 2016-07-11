@@ -5,13 +5,14 @@ import org.greenrobot.eventbus.EventBus;
 import com.grass.R;
 import com.grass.adapter.item.CategorySampleItemInfo;
 import com.grass.core.base.adapter.CommonItemCreator;
-import com.grass.core.bean.BaseSampleItemInfo;
 import com.grass.core.event.EventOfChangeFragment;
 import com.grass.core.event.EventOfOpenActivitySample;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
@@ -22,8 +23,8 @@ public class CategorySampleItemInfoCreator extends CommonItemCreator<CategorySam
         CategorySampleItemInfoCreator.ViewHolder> {
 
     @Override
-    public ViewHolder createViewHolder(Context context) {
-        View view = View.inflate(context, R.layout.fragment_item, null);
+    public ViewHolder createViewHolder(Context context, ViewGroup parent) {
+        View view = LayoutInflater.from(context).inflate(R.layout.common_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -33,6 +34,7 @@ public class CategorySampleItemInfoCreator extends CommonItemCreator<CategorySam
         holder.mItem = commonItemInfo;
         holder.name_Tv.setText(commonItemInfo.getName());
         holder.des_Tv.setText(commonItemInfo.getDescription());
+        holder.mView.setBackgroundResource(R.drawable.common_card_bg);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

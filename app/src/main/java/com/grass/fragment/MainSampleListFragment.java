@@ -4,11 +4,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import com.grass.R;
+import com.grass.core.base.adapter.CommonItemListAdapter;
 import com.grass.core.base.fragment.BaseVertialListFragment;
 import com.grass.core.event.EventOfOpenActivitySample;
 import com.grass.data.AppSamplesStore;
 import com.grass.recyclerview.decoration.VerticalListDivider;
-import com.grass.recyclerview.fragment.MyItemRecyclerViewAdapter;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -53,7 +53,10 @@ public class MainSampleListFragment extends BaseVertialListFragment {
 
     @Override
     public void initData(RecyclerView recyclerView) {
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(AppSamplesStore.getFragmentSamples()));
+        CommonItemListAdapter listAdapter = new CommonItemListAdapter(getActivity());
+        listAdapter.setData(AppSamplesStore.getFragmentSamples());
+        recyclerView.setAdapter(listAdapter);
+
     }
 
     @Subscribe

@@ -1,11 +1,12 @@
 package com.grass.core.bean;
 
 import com.grass.core.base.SampeType;
+import com.grass.core.base.adapter.CommonItemInfo;
 
 /**
  * Created by grass on 15/11/18.
  */
-public class BaseSampleItemInfo<T> {
+public class BaseSampleItemInfo<T> extends CommonItemInfo{
     private String mDescription;
     private Class<T> mSample;
     private String mName;

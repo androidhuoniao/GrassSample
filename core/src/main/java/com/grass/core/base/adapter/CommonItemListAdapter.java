@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 public class CommonItemListAdapter extends RecyclerView.Adapter {
 
-    private List<CommonItemInfo> mData = new ArrayList<>();
+    private List<? extends CommonItemInfo> mData = new ArrayList<>();
     private Context mContext;
 
     public CommonItemListAdapter(Context context) {
@@ -26,7 +26,7 @@ public class CommonItemListAdapter extends RecyclerView.Adapter {
         if (creator == null) {
             throw new RuntimeException("creator is null");
         }
-        return creator.createViewHolder(mContext);
+        return creator.createViewHolder(mContext,parent);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class CommonItemListAdapter extends RecyclerView.Adapter {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    public void setData(List<CommonItemInfo> infos) {
+    public void setData(List<? extends CommonItemInfo> infos) {
         mData = infos;
     }
 

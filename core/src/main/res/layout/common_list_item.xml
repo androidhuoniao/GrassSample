@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/ds20">
+
+    <TextView
+        android:id="@+id/name_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:gravity="left|top"
+        android:paddingLeft="@dimen/ds20"
+        android:paddingRight="@dimen/ds20"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/fontsize32" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds2"
+        android:background="#fff2f2f2" />
+
+    <TextView
+        android:id="@+id/des_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds60"
+        android:gravity="left|top"
+        android:paddingLeft="@dimen/ds20"
+        android:paddingRight="@dimen/ds20"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/fontsize26" />
+</LinearLayout>
