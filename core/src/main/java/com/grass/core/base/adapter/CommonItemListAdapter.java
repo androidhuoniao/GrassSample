@@ -26,7 +26,7 @@ public class CommonItemListAdapter extends RecyclerView.Adapter {
         if (creator == null) {
             throw new RuntimeException("creator is null");
         }
-        return creator.createViewHolder(mContext,parent);
+        return creator.createViewHolder(mContext, parent);
     }
 
     @Override
@@ -54,6 +54,7 @@ public class CommonItemListAdapter extends RecyclerView.Adapter {
 
     public void setData(List<? extends CommonItemInfo> infos) {
         mData = infos;
+        notifyDataSetChanged();
     }
 
     public void clear() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.grass.adapter.item.CategorySampleItemInfo;
 import com.grass.core.base.SampeType;
+import com.grass.fragment.AgeraImageListFragment;
 import com.grass.fragment.HorizontalRecyclerViewFragment;
 import com.grass.fragment.PictureGridFragment;
 
@@ -24,7 +25,13 @@ public class AppSamplesStore {
                 "PictureGridFragment",
                 "使用grid的形式来展示缩略图",
                 PictureGridFragment.class);
+
         list.add(gridInfo);
+        CategorySampleItemInfo ageraInfo = new CategorySampleItemInfo(SampeType.FRAGMENT,
+                "AgeraImageListFragment",
+                "使用grid的形式来展示缩略图",
+                AgeraImageListFragment.class);
+        list.add(ageraInfo);
 
         return list;
     }

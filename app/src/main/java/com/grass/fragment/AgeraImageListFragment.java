@@ -1,26 +1,35 @@
 package com.grass.fragment;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
+import java.util.ArrayList;
+import java.util.concurrent.Executors;
 
+import org.greenrobot.eventbus.EventBus;
+
+import com.google.android.agera.Function;
 import com.google.android.agera.Repositories;
+import com.google.android.agera.Repository;
+import com.google.android.agera.Supplier;
+import com.google.android.agera.Updatable;
 import com.grass.R;
+import com.grass.adapter.item.ImageInfo;
 import com.grass.core.base.adapter.CommonItemListAdapter;
 import com.grass.core.base.fragment.BaseVertialListFragment;
-import com.grass.core.event.EventOfOpenActivitySample;
 import com.grass.data.AppSamplesStore;
+import com.grass.mediastore.ImageItemInfo;
+import com.grass.mediastore.ImageStore;
 import com.grass.recyclerview.decoration.VerticalListDivider;
+import com.orhanobut.logger.Logger;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 public class AgeraImageListFragment extends BaseVertialListFragment {
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+
+    private RecyclerView mRecycleView;
+    private CommonItemListAdapter mAdapter;
+
     public AgeraImageListFragment() {
 
     }
@@ -50,6 +59,7 @@ public class AgeraImageListFragment extends BaseVertialListFragment {
         super.initRecycleView(recyclerView);
         Drawable dividerDrawable = getResources().getDrawable(R.drawable.vertical_divider);
         recyclerView.addItemDecoration(new VerticalListDivider(dividerDrawable));
+        mRecycleView = recyclerView;
     }
 
     @Override
@@ -57,16 +67,59 @@ public class AgeraImageListFragment extends BaseVertialListFragment {
         CommonItemListAdapter listAdapter = new CommonItemListAdapter(getActivity());
         listAdapter.setData(AppSamplesStore.getFragmentSamples());
         recyclerView.setAdapter(listAdapter);
-
-    }
-
-    @Subscribe
-    public void onEventOfOpenActivitySample(EventOfOpenActivitySample info) {
-        Intent intent = new Intent(getContext(), info.getInfo().getSample());
-        startActivity(intent);
+        mAdapter = listAdapter;
+        loadImages();
     }
 
     private void loadImages() {
-        Repositories.repositoryWithInitialValue("").o
+        Repository<ArrayList<ImageInfo>> imageRepo = Repositories.repositoryWithInitialValue(new ArrayList<ImageInfo>())
+                .observe()
+                .onUpdatesPerLoop()
+                .goTo(Executors.newSingleThreadExecutor())
+                .getFrom(imagesSupplier)
+                .thenTransform(convertFun)
+                .compile();
+        imageRepo.addUpdatable(imagesUpdateable);
+        mImageRepo = imageRepo;
     }
+
+    private Repository<ArrayList<ImageInfo>> mImageRepo;
+
+    private Updatable imagesUpdateable = new Updatable() {
+        @Override
+        public void update() {
+            if (mImageRepo != null) {
+                ArrayList<ImageInfo> imageInfos = mImageRepo.get();
+                mAdapter.setData(imageInfos);
+            }
+        }
+    };
+    private Supplier<ArrayList<ImageItemInfo>> imagesSupplier = new Supplier<ArrayList<ImageItemInfo>>() {
+        @NonNull
+        @Override
+        public ArrayList<ImageItemInfo> get() {
+            ArrayList<ImageItemInfo>
+                    imageItemInfos = ImageStore.queryImages(AgeraImageListFragment.this.getActivity());
+            Logger.i("" + imageItemInfos.size());
+            return imageItemInfos;
+        }
+    };
+
+    private Function<ArrayList<ImageItemInfo>, ArrayList<ImageInfo>> convertFun =
+            new Function<ArrayList<ImageItemInfo>, ArrayList<ImageInfo>>() {
+
+                @NonNull
+                @Override
+                public ArrayList<ImageInfo> apply(@NonNull ArrayList<ImageItemInfo> input) {
+                    ArrayList<ImageInfo> imageInfos = new ArrayList<>(input.size());
+                    for (ImageItemInfo imageItemInfo : input) {
+                        ImageInfo imageInfo = new ImageInfo();
+                        imageInfo.setImageID(imageItemInfo.getImageId());
+                        imageInfo.setImagePath(imageItemInfo.getPath());
+                        imageInfos.add(imageInfo);
+                    }
+                    return imageInfos;
+                }
+            };
+
 }
