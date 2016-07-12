@@ -3,8 +3,6 @@ package com.grass.fragment;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 
-import org.greenrobot.eventbus.EventBus;
-
 import com.google.android.agera.Function;
 import com.google.android.agera.Repositories;
 import com.google.android.agera.Repository;
@@ -45,13 +43,11 @@ public class AgeraImageListFragment extends BaseVertialListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
