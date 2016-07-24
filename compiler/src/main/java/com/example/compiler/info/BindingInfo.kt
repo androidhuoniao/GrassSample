@@ -6,4 +6,5 @@ package com.example.compiler.info
 class BindingInfo {
     val items: MutableSet<BindItemInfo> = mutableSetOf()
     val parsers: MutableSet<BindParserInfo> = mutableSetOf()
+    val tests: MutableSet<BindTestInfo> = mutableSetOf()
 }

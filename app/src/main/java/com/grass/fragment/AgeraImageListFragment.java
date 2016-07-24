@@ -3,6 +3,7 @@ package com.grass.fragment;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 
+import com.example.anno.BindTestCase;
 import com.google.android.agera.Function;
 import com.google.android.agera.Repositories;
 import com.google.android.agera.Repository;
@@ -23,13 +24,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
+@BindTestCase(type = 1, name = "AgeraImageListFragment", des = "介绍如何使用google agera框架")
 public class AgeraImageListFragment extends BaseVertialListFragment {
 
     private RecyclerView mRecycleView;
     private CommonItemListAdapter mAdapter;
 
     public AgeraImageListFragment() {
-
     }
 
     @SuppressWarnings("unused")

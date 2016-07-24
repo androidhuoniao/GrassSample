@@ -1,6 +1,7 @@
 package com.grass;
 
 import com.example.BindingItemStartup;
+import com.example.BindingTestStartup;
 
 import android.app.Application;
 
@@ -13,6 +14,7 @@ public class GrassApplication extends Application {
     public void onCreate() {
         super.onCreate();
         new BindingItemStartup();
+        new BindingTestStartup();
     }
 }
 

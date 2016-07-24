@@ -21,7 +21,6 @@ public class MainSampleListFragment extends BaseVertialListFragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public MainSampleListFragment() {
-
     }
 
     @SuppressWarnings("unused")

@@ -2,8 +2,10 @@ package com.example.compiler
 
 import com.example.anno.BindItem
 import com.example.anno.BindParser
+import com.example.anno.BindTestCase
 import com.example.compiler.info.BindItemInfo
 import com.example.compiler.info.BindParserInfo
+import com.example.compiler.info.BindTestInfo
 import com.example.compiler.info.BindingInfo
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.CodeBlock
@@ -28,6 +30,8 @@ class GrassProcessor : AbstractProcessor() {
     companion object {
         val PACKAGE_NAME = "com.example"
         val COMMON_ITEM_FACTORY = ClassName.get("com.grass.core.base.adapter", "CommonItemFactory")
+        val APP_SAMPLE_STORE = ClassName.get("com.grass.data", "AppSamplesStore")
+        val CATEGORY_SAMPLE_ITEM_INFO = ClassName.get("com.grass.adapter.item", "CategorySampleItemInfo")
     }
 
     var elementUtils: Elements by Delegates.notNull()
@@ -50,6 +54,7 @@ class GrassProcessor : AbstractProcessor() {
 
     override fun process(annotations: MutableSet<out TypeElement>, env: RoundEnvironment): Boolean {
         try {
+            onWarning("===============process is working====================================")
             process(env)
             round++
         } catch (e: Exception) {
@@ -59,19 +64,69 @@ class GrassProcessor : AbstractProcessor() {
     }
 
     fun process(env: RoundEnvironment) {
+        processBindItems(env)
+        processBindParsers(env)
+        processBindTests(env)
+    }
+
+    fun processBindItems(env: RoundEnvironment) {
         val items = env.getElementsAnnotatedWith(BindItem::class.java).filter { it is TypeElement }.map { it as TypeElement }
-        val parsers = env.getElementsAnnotatedWith(BindParser::class.java).filter { it is TypeElement }
-                .map { it as TypeElement }
-        onWarning("===========================" + items.size + " " + parsers.size)
-        if (listOf(items, parsers).all { it.isEmpty() }) {
+        onWarning("=========================== items: " + items.size)
+        if (items.isEmpty()) {
             return
         }
-        onWarning("==============2=============" + items.size + " " + parsers.size)
         parserBindItem(items)
-        parseParser(parsers)
-
         generateBindItemCode(bindInfo.items)
+    }
+
+
+    fun processBindParsers(env: RoundEnvironment) {
+        val parsers = env.getElementsAnnotatedWith(BindParser::class.java).filter { it is TypeElement }
+                .map { it as TypeElement }
+
+        onWarning("===========================" + " parsers: " + parsers.size)
+        if (parsers.isEmpty()) {
+            return;
+        }
+        parseParser(parsers)
         generateParserCode(bindInfo.parsers)
+    }
+
+
+    fun processBindTests(env: RoundEnvironment) {
+        val tests = env.getElementsAnnotatedWith(BindTestCase::class.java).filter { it is TypeElement }.map { it as TypeElement }
+        onWarning("=========================== " + " tests: " + tests
+                .size)
+        if (tests.isEmpty()) {
+            return;
+        }
+        parseTests(tests)
+        generateBindTestsCode(bindInfo.tests)
+
+    }
+
+    private fun parseTests(test: List<TypeElement>) {
+        val result = test.map {
+            val test = ClassName.get(it)
+            val annotation = it.getAnnotation(BindTestCase::class.java)
+            val type = annotation.type;
+            val name = annotation.name;
+            val des = annotation.des;
+            BindTestInfo(type, name, des, test)
+        }
+        bindInfo.tests.addAll(result)
+    }
+
+    /**
+    AppSamplesStore.registerCategoryTestCase(CategorySampleItemInfo.createInstance(SampleType.FRAGMENT, "", "", Test::class.java))
+
+     */
+    private fun generateBindTestsCode(test: Iterable<BindTestInfo>) {
+        test.generateCode(PACKAGE_NAME, "BindingTestStartup", {
+            it.addStatement("$1T.registerCategoryTestCase($2T.createInstance($3L, $4S, $5S, $6T" +
+                    ".class))"
+                    , APP_SAMPLE_STORE, CATEGORY_SAMPLE_ITEM_INFO, type, name, des, bindcase)
+        })
     }
 
     fun parserBindItem(items: List<TypeElement>) {
@@ -138,7 +193,8 @@ class GrassProcessor : AbstractProcessor() {
 
     override fun getSupportedAnnotationTypes(): MutableSet<String>? {
         return setOf(BindItem::class,
-                BindParser::class).map {
+                BindParser::class,
+                BindTestCase::class).map {
             it.java.canonicalName
         }.toMutableSet()
     }
