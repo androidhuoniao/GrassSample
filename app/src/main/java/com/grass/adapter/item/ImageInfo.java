@@ -1,7 +1,5 @@
 package com.grass.adapter.item;
 
-import com.grass.adapter.creator.ImageInfoCreator;
-import com.grass.core.base.adapter.CommonItemFactory;
 import com.grass.core.base.adapter.CommonItemInfo;
 
 /**
@@ -14,7 +12,7 @@ public class ImageInfo extends CommonItemInfo {
 
 
     static {
-        CommonItemFactory.registerCreator(ImageInfo.class, new ImageInfoCreator());
+//        CommonItemFactory.registerCreator(ImageInfo.class, new ImageInfoCreator());
     }
     public ImageInfo() {
     }

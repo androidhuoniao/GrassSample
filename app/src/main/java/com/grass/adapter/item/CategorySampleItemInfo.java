@@ -1,8 +1,6 @@
 package com.grass.adapter.item;
 
-import com.grass.adapter.creator.CategorySampleItemInfoCreator;
 import com.grass.core.base.SampeType;
-import com.grass.core.base.adapter.CommonItemFactory;
 import com.grass.core.bean.BaseSampleItemInfo;
 
 /**
@@ -11,7 +9,7 @@ import com.grass.core.bean.BaseSampleItemInfo;
 public class CategorySampleItemInfo extends BaseSampleItemInfo {
 
     static {
-        CommonItemFactory.registerCreator(CategorySampleItemInfo.class, new CategorySampleItemInfoCreator());
+//        CommonItemFactory.registerCreator(CategorySampleItemInfo.class, new CategorySampleItemInfoCreator());
     }
 
     public CategorySampleItemInfo(SampeType type, String name, String des, Class sample) {

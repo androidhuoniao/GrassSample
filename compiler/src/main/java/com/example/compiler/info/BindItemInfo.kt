@@ -1,4 +1,4 @@
-package com.example.compiler
+package com.example.compiler.info
 
 import com.squareup.javapoet.ClassName
 

@@ -1,5 +1,7 @@
 package com.grass;
 
+import com.example.BindingItemStartup;
+
 import android.app.Application;
 
 /**
@@ -7,4 +9,10 @@ import android.app.Application;
  */
 
 public class GrassApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        new BindingItemStartup();
+    }
 }
+

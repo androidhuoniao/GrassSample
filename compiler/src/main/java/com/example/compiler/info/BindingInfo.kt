@@ -1,4 +1,4 @@
-package com.example.compiler
+package com.example.compiler.info
 
 /**
  * Created by grass on 16/7/23.

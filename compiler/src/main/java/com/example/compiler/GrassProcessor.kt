@@ -2,6 +2,9 @@ package com.example.compiler
 
 import com.example.anno.BindItem
 import com.example.anno.BindParser
+import com.example.compiler.info.BindItemInfo
+import com.example.compiler.info.BindParserInfo
+import com.example.compiler.info.BindingInfo
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.CodeBlock
 import com.squareup.javapoet.JavaFile
