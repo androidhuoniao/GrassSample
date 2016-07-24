@@ -46,9 +46,12 @@ class GrassProcessor : AbstractProcessor() {
     }
 
     override fun process(annotations: MutableSet<out TypeElement>, env: RoundEnvironment): Boolean {
-        onWarning("============process is working ${round}===============")
-        process(env)
-        round++
+        try {
+            process(env)
+            round++
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         return false;
     }
 
