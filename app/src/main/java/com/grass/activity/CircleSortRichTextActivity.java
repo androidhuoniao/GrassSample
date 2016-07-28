@@ -11,6 +11,7 @@ import com.yydcdut.sdlv.SlideAndDragListView;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,18 +63,20 @@ public class CircleSortRichTextActivity extends Activity implements SlideAndDrag
     }
 
     public void initMenu() {
-        mMenu = new Menu(true, true);
+        mMenu = new Menu(false, true);
         mMenu.addItem(new MenuItem.Builder().setWidth(
                 100)
                 .setText("One")
                 .setTextColor(Color.GRAY)
                 .setTextSize(14)
+                .setBackground(new ColorDrawable(Color.parseColor("#fff2f2f2")))
                 .build());
         mMenu.addItem(new MenuItem.Builder().setWidth(
                 100)
                 .setText("two")
                 .setTextColor(Color.GRAY)
                 .setTextSize(14)
+                .setBackground(new ColorDrawable(Color.parseColor("#fff2f2f2")))
                 .build());
     }
 
