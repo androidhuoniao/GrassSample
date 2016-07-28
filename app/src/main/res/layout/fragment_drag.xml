@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.grass.fragment.DragFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/dragview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@android:color/holo_red_light"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>

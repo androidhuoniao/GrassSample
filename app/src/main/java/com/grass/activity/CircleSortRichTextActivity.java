@@ -6,12 +6,10 @@ import com.example.anno.BindTestCase;
 import com.grass.R;
 import com.grass.data.CommonContentItem;
 import com.yydcdut.sdlv.Menu;
-import com.yydcdut.sdlv.MenuItem;
 import com.yydcdut.sdlv.SlideAndDragListView;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +44,6 @@ public class CircleSortRichTextActivity extends Activity implements SlideAndDrag
         mListView.setOnListItemLongClickListener(new SlideAndDragListView.OnListItemLongClickListener() {
             @Override
             public void onListItemLongClick(View view, int position) {
-
             }
         });
         mListView.closeSlidedItem();
@@ -54,7 +51,7 @@ public class CircleSortRichTextActivity extends Activity implements SlideAndDrag
 
     private void initTestData() {
         mContentList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             CommonContentItem commonContentItem = new CommonContentItem();
             commonContentItem.ctype = CommonContentItem.TYPE_TEXT;
             commonContentItem.value = "grass" + i;
@@ -64,20 +61,20 @@ public class CircleSortRichTextActivity extends Activity implements SlideAndDrag
 
     public void initMenu() {
         mMenu = new Menu(false, true);
-        mMenu.addItem(new MenuItem.Builder().setWidth(
-                100)
-                .setText("One")
-                .setTextColor(Color.GRAY)
-                .setTextSize(14)
-                .setBackground(new ColorDrawable(Color.parseColor("#fff2f2f2")))
-                .build());
-        mMenu.addItem(new MenuItem.Builder().setWidth(
-                100)
-                .setText("two")
-                .setTextColor(Color.GRAY)
-                .setTextSize(14)
-                .setBackground(new ColorDrawable(Color.parseColor("#fff2f2f2")))
-                .build());
+//        mMenu.addItem(new MenuItem.Builder().setWidth(
+//                100)
+//                .setText("One")
+//                .setTextColor(Color.GRAY)
+//                .setTextSize(14)
+//                .setBackground(new ColorDrawable(Color.parseColor("#fff2f2f2")))
+//                .build());
+//        mMenu.addItem(new MenuItem.Builder().setWidth(
+//                100)
+//                .setText("two")
+//                .setTextColor(Color.GRAY)
+//                .setTextSize(14)
+//                .setBackground(new ColorDrawable(Color.parseColor("#fff2f2f2")))
+//                .build());
     }
 
     private BaseAdapter mAdapter = new BaseAdapter() {
@@ -132,7 +129,8 @@ public class CircleSortRichTextActivity extends Activity implements SlideAndDrag
 
     @Override
     public void onDragViewStart(int position) {
-
+        View view = mListView.getChildAt(position - mListView.getFirstVisiblePosition());
+        view.setBackgroundColor(Color.RED);
     }
 
     @Override
@@ -142,7 +140,8 @@ public class CircleSortRichTextActivity extends Activity implements SlideAndDrag
 
     @Override
     public void onDragViewDown(int position) {
-
+        View view = mListView.getChildAt(position - mListView.getFirstVisiblePosition());
+        view.setBackgroundColor(Color.BLUE);
     }
 
     private class ViewHolder {

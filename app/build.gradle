@@ -27,5 +27,6 @@ dependencies {
     compile project(':recyclerview')
     compile project(':core')
     compile 'com.yydcdut.sdlv:sdlv:0.5.4@aar'
+    compile 'com.android.support:support-v4:23.4.0'
     testCompile 'junit:junit:4.12'
 }

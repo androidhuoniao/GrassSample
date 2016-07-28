@@ -36,6 +36,14 @@ public class DragListActivity extends Activity implements SlideAndDragListView.O
         initTestData();
         mListView.setAdapter(mAdapter);
         mListView.setOnDragListener(this, mContentList);
+        mListView.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }
+        });
+
     }
 
     private void initTestData() {
