@@ -26,6 +26,6 @@ dependencies {
     apt project(":compiler")
     compile project(':recyclerview')
     compile project(':core')
-
+    compile 'com.yydcdut.sdlv:sdlv:0.5.4@aar'
     testCompile 'junit:junit:4.12'
 }
