@@ -1,0 +1,33 @@
+ext {
+    kotlin_version = "1.0.3"
+    support_version = "23.1.1"
+    build_version = "2.1.0"
+    apt_version = "1.8"
+
+    dps = [
+            support: [
+                    support_annotations: "com.android.support:support-annotations:$support_version",
+                    support_v4         : "com.android.support:support-v4:$support_version",
+                    app_compat_v7      : "com.android.support:appcompat-v7:$support_version",
+                    recycler_v7        : "com.android.support:recyclerview-v7:$support_version",
+                    design             : "com.android.support:design:$support_version"
+            ],
+            square : [
+                    java_poet   : 'com.squareup:javapoet:1.7.0',
+                    moshi       : 'com.squareup.moshi:moshi:1.1.0',
+                    butter_knife: 'com.jakewharton:butterknife:7.0.1',
+            ],
+            kotlin : [
+                    kotlin_std_lib    : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+                    kotlin_reflect_lib: "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
+            ],
+            general: [
+                    guava: 'com.google.guava:guava:19.0'
+            ],
+            gradle : [
+                    android_plugin: "com.android.tools.build:gradle:$build_version",
+                    android_apt   : "com.neenbedankt.gradle.plugins:android-apt:$apt_version",
+                    kotlin_plugin : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
+            ]
+    ]
+}

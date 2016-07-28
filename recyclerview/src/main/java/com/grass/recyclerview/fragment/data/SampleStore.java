@@ -3,8 +3,8 @@ package com.grass.recyclerview.fragment.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.grass.core.base.SampeType;
 import com.grass.core.bean.BaseSampleItemInfo;
+import com.grass.core.bean.SampleType;
 import com.grass.recyclerview.dummy.BookFragment;
 
 public class SampleStore {
@@ -12,7 +12,7 @@ public class SampleStore {
     public static final List<BaseSampleItemInfo> ITEMS = new ArrayList<BaseSampleItemInfo>();
 
     static {
-        BaseSampleItemInfo<BookFragment> bookInfo = new BaseSampleItemInfo<>(SampeType.FRAGMENT,
+        BaseSampleItemInfo<BookFragment> bookInfo = new BaseSampleItemInfo<>(SampleType.FRAGMENT,
                 "测试例子",
                 "",
                 BookFragment.class);

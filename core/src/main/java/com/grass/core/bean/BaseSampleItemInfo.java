@@ -1,6 +1,5 @@
 package com.grass.core.bean;
 
-import com.grass.core.base.SampeType;
 import com.grass.core.base.adapter.CommonItemInfo;
 
 /**
@@ -10,16 +9,16 @@ public class BaseSampleItemInfo<T> extends CommonItemInfo{
     private String mDescription;
     private Class<T> mSample;
     private String mName;
-    private SampeType mType;
+    private SampleType mType;
 
-    public BaseSampleItemInfo(SampeType type, String name, String des, Class<T> sample) {
+    public BaseSampleItemInfo(SampleType type, String name, String des, Class<T> sample) {
         mType = type;
         mName = name;
         mDescription = des;
         mSample = sample;
     }
 
-    public SampeType getType() {
+    public SampleType getType() {
         return mType;
     }
 

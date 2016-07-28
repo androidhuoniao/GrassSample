@@ -1,6 +1,7 @@
 package com.grass.adapter.creator;
 
 import com.bumptech.glide.Glide;
+import com.example.anno.BindItem;
 import com.grass.R;
 import com.grass.adapter.item.ImageInfo;
 import com.grass.core.base.adapter.CommonItemCreator;
@@ -15,7 +16,7 @@ import android.widget.ImageView;
 /**
  * Created by grass on 16/7/11.
  */
-
+@BindItem(ImageInfo.class)
 public class ImageInfoCreator extends CommonItemCreator<ImageInfo, ImageInfoCreator.ViewHolder> {
 
     @Override

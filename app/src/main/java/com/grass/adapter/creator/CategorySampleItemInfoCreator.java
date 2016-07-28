@@ -2,6 +2,7 @@ package com.grass.adapter.creator;
 
 import org.greenrobot.eventbus.EventBus;
 
+import com.example.anno.BindItem;
 import com.grass.R;
 import com.grass.adapter.item.CategorySampleItemInfo;
 import com.grass.core.base.adapter.CommonItemCreator;
@@ -18,7 +19,7 @@ import android.widget.TextView;
 /**
  * Created by grass on 16/7/10.
  */
-
+@BindItem(CategorySampleItemInfo.class)
 public class CategorySampleItemInfoCreator extends CommonItemCreator<CategorySampleItemInfo,
         CategorySampleItemInfoCreator.ViewHolder> {
 

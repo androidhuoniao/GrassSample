@@ -3,6 +3,7 @@ package com.grass.fragment;
 import java.util.ArrayList;
 
 import com.bumptech.glide.Glide;
+import com.example.anno.BindTestCase;
 import com.grass.R;
 import com.grass.mediastore.ImageItemInfo;
 import com.grass.mediastore.ImageStore;
@@ -23,6 +24,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+@BindTestCase(type = 1, name = "PictureGridFragment", des = "使用grid的形式来展示缩略图")
 public class PictureGridFragment extends Fragment {
 
     RecyclerView mRecyclerView;

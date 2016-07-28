@@ -1,5 +1,6 @@
 package com.grass.fragment;
 
+import com.example.anno.BindTestCase;
 import com.grass.R;
 
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+@BindTestCase(type = 1, name = "HorizontalRecyclerViewFragment", des = "介绍如何使用横向的RecyclerView")
 public class HorizontalRecyclerViewFragment extends Fragment {
 
     RecyclerView mRecyclerView;
