@@ -35,7 +35,8 @@ public class RetrofitFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                getData();
+                //                getData();
+                new TrendingPresenter().loadData();
             }
         });
         return view;
