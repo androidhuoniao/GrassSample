@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +42,6 @@ public class RetrofitFragment extends Fragment {
     }
 
     public void getData() {
-        Toast.makeText(getActivity(), "getData is working", Toast.LENGTH_SHORT).show();
         NcuAPI ncuAPI = new NcuAPI();
         Call<List<News>> newscall = ncuAPI.getNews(3);
         newscall.enqueue(new Callback<List<News>>() {
