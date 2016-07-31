@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.grass.adapter.item.DouBanMovieItemInfo;
+import com.grass.core.base.mvp.IBaseMvpView;
+import com.grass.core.base.mvp.MvpPresenter;
 
 import android.util.Log;
 import rx.Subscriber;
@@ -15,19 +17,17 @@ import rx.schedulers.Schedulers;
  * Created by grass on 16/7/31.
  */
 
-public class DouBanTop250Presenter {
+public class DouBanTop250Presenter extends MvpPresenter<IBaseMvpView, DoubanTop250MovieResponse> {
 
     private DoubanTop250MovieRetrofit mDoubanRetrofit;
 
-    private DoubanTop250Fragment mFragment;
-
-    public DouBanTop250Presenter(DoubanTop250Fragment fragment) {
+    public DouBanTop250Presenter() {
         mDoubanRetrofit = new DoubanTop250MovieRetrofit();
-        mFragment = fragment;
     }
 
+    @Override
     public void loadData() {
-        getMovies(0, 250);
+        getMovies(0, 25);
     }
 
     private void getMovies(int start, int count) {
@@ -65,7 +65,7 @@ public class DouBanTop250Presenter {
                         for (DouBanMovieItemInfo doubanMovy : doubanMovies) {
                             Log.i("grass", "movie: " + doubanMovy.mMovie.getTitle());
                         }
-                        mFragment.onDataReceived(doubanMovies);
+                        getMvpView().onDataReceived(doubanMovies);
                     }
                 });
 
