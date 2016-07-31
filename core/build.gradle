@@ -34,10 +34,17 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.jakewharton:butterknife:8.1.0'
     compile 'com.google.android.agera:agera:1.1.0'
+
+
     compile dps.square.retrofit
     compile dps.square.retrofit_converters
     compile dps.square.retrofit_gson
     compile dps.square.retrofit_rxjava_adapter
+
+
+    compile 'com.github.d-max:spots-dialog:0.4@aar'
+
+
     testCompile 'junit:junit:4.12'
 
 }

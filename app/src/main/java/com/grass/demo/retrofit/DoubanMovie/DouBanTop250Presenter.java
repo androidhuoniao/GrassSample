@@ -10,6 +10,7 @@ import com.grass.core.base.mvp.MvpPresenter;
 import android.util.Log;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -47,7 +48,20 @@ public class DouBanTop250Presenter extends MvpPresenter<IBaseMvpView, DoubanTop2
                     }
                 })
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        getMvpView().showLoading("");
+                    }
+                })
+                .doOnTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        getMvpView().dismissLoading();
+                    }
+                })
                 .subscribe(new Subscriber<List<DouBanMovieItemInfo>>() {
                     @Override
                     public void onCompleted() {

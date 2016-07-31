@@ -8,15 +8,18 @@ import com.grass.core.base.adapter.CommonItemListAdapter;
 import com.grass.core.base.mvp.IBaseMvpView;
 import com.grass.core.base.mvp.MvpPresenter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import dmax.dialog.SpotsDialog;
 
 public abstract class BaseVertialListFragment extends Fragment
         implements IBaseMvpView<List<CommonItemInfo>> {
@@ -25,6 +28,8 @@ public abstract class BaseVertialListFragment extends Fragment
     protected RecyclerView mRecyclerView;
 
     protected MvpPresenter mMvpPresenter;
+
+    private AlertDialog mLoadingDialog;
 
     public BaseVertialListFragment() {
 
@@ -39,6 +44,7 @@ public abstract class BaseVertialListFragment extends Fragment
         super.onCreate(savedInstanceState);
         mAdapter = new CommonItemListAdapter(getActivity());
         mMvpPresenter = createPresenter();
+        mLoadingDialog = new SpotsDialog(getActivity());
     }
 
     @Override
@@ -52,6 +58,7 @@ public abstract class BaseVertialListFragment extends Fragment
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mAdapter);
         initRecycleView(recyclerView);
+
         return view;
     }
 
@@ -61,12 +68,16 @@ public abstract class BaseVertialListFragment extends Fragment
 
     @Override
     public void showLoading(String message) {
-
+        if (TextUtils.isEmpty(message)) {
+            message = "请稍等";
+        }
+        mLoadingDialog.setMessage(message);
+        mLoadingDialog.show();
     }
 
     @Override
     public void dismissLoading() {
-
+        mLoadingDialog.dismiss();
     }
 
     protected abstract MvpPresenter createPresenter();
