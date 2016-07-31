@@ -27,38 +27,10 @@ public class DouBanTop250Presenter {
     }
 
     public void loadData() {
-        getMovies2(0, 250);
+        getMovies(0, 250);
     }
 
     private void getMovies(int start, int count) {
-        mDoubanRetrofit.getRetrofit()
-                .create(DouBanTop250Service.class)
-                .getDoubanMovies(start, count)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<DoubanTop250MovieResponse>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.i("grass", "onCompleted is working");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i("grass", "onError is working" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(DoubanTop250MovieResponse doubanMovie) {
-                        Log.i("grass", "onNext is working " + doubanMovie.subjects.size());
-                        for (DoubanMovie movie : doubanMovie.subjects) {
-                            Log.i("grass", "movie: " + movie.getTitle());
-                        }
-                    }
-                });
-
-    }
-
-    private void getMovies2(int start, int count) {
         mDoubanRetrofit.getRetrofit()
                 .create(DouBanTop250Service.class)
                 .getDoubanMovies(start, count)

@@ -7,7 +7,6 @@ import com.grass.R;
 import com.grass.core.base.adapter.CommonItemInfo;
 import com.grass.core.base.adapter.CommonItemListAdapter;
 import com.grass.core.base.fragment.BaseVertialListFragment;
-import com.grass.data.AppSamplesStore;
 import com.grass.recyclerview.decoration.VerticalListDivider;
 
 import android.graphics.drawable.Drawable;
@@ -27,7 +26,11 @@ public class DoubanTop250Fragment extends BaseVertialListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CommonItemListAdapter listAdapter = new CommonItemListAdapter(getActivity());
+        mAdapter = listAdapter;
+
         mPresenter = new DouBanTop250Presenter(this);
+        mPresenter.loadData();
     }
 
     @Override
@@ -39,15 +42,12 @@ public class DoubanTop250Fragment extends BaseVertialListFragment {
 
     @Override
     public void initData(RecyclerView recyclerView) {
-        CommonItemListAdapter listAdapter = new CommonItemListAdapter(getActivity());
-        listAdapter.setData(AppSamplesStore.getFragmentSamples());
-        recyclerView.setAdapter(listAdapter);
-        mAdapter = listAdapter;
-        mPresenter.loadData();
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
 
     public void onDataReceived(List<? extends CommonItemInfo> list) {
-        if (null != list) {
+        if (null != list && null != mAdapter) {
             mAdapter.setData(list);
             mAdapter.notifyDataSetChanged();
         }
