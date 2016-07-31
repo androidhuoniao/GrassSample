@@ -13,12 +13,13 @@ ext {
                     design             : "com.android.support:design:$support_version"
             ],
             square : [
-                    java_poet          : 'com.squareup:javapoet:1.7.0',
-                    moshi              : 'com.squareup.moshi:moshi:1.1.0',
-                    butter_knife       : 'com.jakewharton:butterknife:8.1.0',
-                    retrofit           : 'com.squareup.retrofit2:retrofit:2.1.0',
-                    retrofit_converters: 'com.squareup.retrofit2:retrofit-converters:2.1.0',
-                    retrofit_gson      : 'com.squareup.retrofit2:converter-gson:2.1.0'
+                    java_poet              : 'com.squareup:javapoet:1.7.0',
+                    moshi                  : 'com.squareup.moshi:moshi:1.1.0',
+                    butter_knife           : 'com.jakewharton:butterknife:8.1.0',
+                    retrofit               : 'com.squareup.retrofit2:retrofit:2.1.0',
+                    retrofit_converters    : 'com.squareup.retrofit2:retrofit-converters:2.1.0',
+                    retrofit_gson          : 'com.squareup.retrofit2:converter-gson:2.1.0',
+                    retrofit_rxjava_adapter: 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
             ],
             kotlin : [
                     kotlin_std_lib    : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",

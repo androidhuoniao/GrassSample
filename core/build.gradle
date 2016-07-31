@@ -37,6 +37,7 @@ dependencies {
     compile dps.square.retrofit
     compile dps.square.retrofit_converters
     compile dps.square.retrofit_gson
+    compile dps.square.retrofit_rxjava_adapter
     testCompile 'junit:junit:4.12'
 
 }

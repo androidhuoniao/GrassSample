@@ -28,7 +28,7 @@ import android.support.v7.widget.RecyclerView;
 public class AgeraImageListFragment extends BaseVertialListFragment {
 
     private RecyclerView mRecycleView;
-    private CommonItemListAdapter mAdapter;
+
 
     public AgeraImageListFragment() {
     }

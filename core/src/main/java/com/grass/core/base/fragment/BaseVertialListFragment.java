@@ -1,6 +1,7 @@
 package com.grass.core.base.fragment;
 
 import com.grass.core.R;
+import com.grass.core.base.adapter.CommonItemListAdapter;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public abstract class BaseVertialListFragment extends Fragment {
+    public CommonItemListAdapter mAdapter;
+
     public BaseVertialListFragment() {
 
     }
