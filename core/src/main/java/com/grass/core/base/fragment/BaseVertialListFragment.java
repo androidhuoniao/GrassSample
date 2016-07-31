@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import dmax.dialog.SpotsDialog;
 
 public abstract class BaseVertialListFragment extends Fragment
@@ -104,17 +105,21 @@ public abstract class BaseVertialListFragment extends Fragment
 
     @Override
     public void onError(String error) {
-
+        showToast(error);
     }
 
     @Override
     public void showToast(String toast) {
-
+        if (!TextUtils.isEmpty(toast)) {
+            Toast.makeText(getActivity(), toast, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void notifyDataChanged() {
-
+        if (null != getAdapter()) {
+            getAdapter().notifyDataSetChanged();
+        }
     }
 
     @Override
