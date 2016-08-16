@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.kotlin_version = '1.0.3'
 
     apply from: file("dependencies.gradle")
     apply from: file("configurations.gradle")
@@ -13,11 +14,13 @@ buildscript {
         classpath dps.gradle.android_plugin
         classpath dps.gradle.kotlin_plugin
         classpath dps.gradle.android_apt
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
+apply plugin: 'kotlin'
 
 allprojects {
     repositories {
@@ -30,4 +33,13 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
 }
