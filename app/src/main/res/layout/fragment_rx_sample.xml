@@ -23,6 +23,17 @@
             android:textSize="@dimen/fontsize34" />
 
         <TextView
+            android:id="@+id/mergeDelayError"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ds100"
+            android:layout_marginBottom="@dimen/ds20"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="mergeDelayError"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/fontsize34" />
+
+        <TextView
             android:id="@+id/join"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ds100"

@@ -8,8 +8,11 @@ import com.orhanobut.logger.Logger;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import rx.schedulers.Timestamped;
 
 /**
  * Created by grass on 16/8/16.
@@ -18,6 +21,45 @@ import rx.schedulers.Schedulers;
 public class RxPresenter {
 
     public RxPresenter() {
+    }
+
+    public void testAndroidObservable() {
+
+    }
+
+    public void mergeDelayError() {
+        Observable.mergeDelayError(getAskObservable().timestamp(), getAnswerObservable().timestamp()
+                .doOnNext(
+                        new Action1<Timestamped<String>>() {
+                            @Override
+                            public void call(Timestamped<String> stringTimestamped) {
+                                Logger.i(stringTimestamped.getValue());
+                            }
+                        }))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(new Func1<Timestamped<String>, Boolean>() {
+                    @Override
+                    public Boolean call(Timestamped<String> stringTimestamped) {
+                        return null;
+                    }
+                }).subscribe(new Subscriber<Timestamped<String>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Timestamped<String> stringTimestamped) {
+
+            }
+        });
+
     }
 
     public void merageOption() {

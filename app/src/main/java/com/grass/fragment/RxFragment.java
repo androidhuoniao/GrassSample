@@ -51,7 +51,9 @@ public class RxFragment extends Fragment {
                 case R.id.merge:
                     mRxPresenter.merageOption();
                     break;
+                case R.id.mergeDelayError:
 
+                    break;
                 case R.id.join:
 
                     break;
