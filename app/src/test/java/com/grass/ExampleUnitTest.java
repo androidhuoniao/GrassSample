@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.example.anno.SampleType;
 import com.grass.fragment.MainSampleListFragment;
 
 import android.support.v4.app.Fragment;
@@ -31,7 +30,5 @@ public class ExampleUnitTest {
 
     @Test
     public void testType() {
-        System.out.println("type 0 "+ SampleType.values()[0]);
-        System.out.println("type 1 "+ SampleType.values()[1]);
     }
 }

@@ -32,6 +32,11 @@ ext {
                     android_plugin: "com.android.tools.build:gradle:$build_version",
                     android_apt   : "com.neenbedankt.gradle.plugins:android-apt:$apt_version",
                     kotlin_plugin : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
+            ],
+            test   : [
+                    junit      : "junit:junit:4.12",
+                    mockito    : "org.mockito:mockito-all:2.0.2-beta",
+                    robolectric: "org.robolectric:robolectric:3.1.2"
             ]
     ]
 }
