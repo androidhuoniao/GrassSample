@@ -11,8 +11,8 @@ import com.google.android.agera.Supplier;
 import com.google.android.agera.Updatable;
 import com.grass.R;
 import com.grass.adapter.item.ImageInfo;
-import com.grass.core.base.adapter.CommonItemListAdapter;
 import com.grass.core.base.fragment.BaseVertialListFragment;
+import com.grass.core.base.mvp.MvpPresenter;
 import com.grass.data.AppSamplesStore;
 import com.grass.mediastore.ImageItemInfo;
 import com.grass.mediastore.ImageStore;
@@ -28,7 +28,6 @@ import android.support.v7.widget.RecyclerView;
 public class AgeraImageListFragment extends BaseVertialListFragment {
 
     private RecyclerView mRecycleView;
-    private CommonItemListAdapter mAdapter;
 
     public AgeraImageListFragment() {
     }
@@ -44,6 +43,7 @@ public class AgeraImageListFragment extends BaseVertialListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadImages();
     }
 
     @Override
@@ -57,15 +57,12 @@ public class AgeraImageListFragment extends BaseVertialListFragment {
         Drawable dividerDrawable = getResources().getDrawable(R.drawable.vertical_divider);
         recyclerView.addItemDecoration(new VerticalListDivider(dividerDrawable));
         mRecycleView = recyclerView;
+        getAdapter().setData(AppSamplesStore.getFragmentSamples());
     }
 
     @Override
-    public void initData(RecyclerView recyclerView) {
-        CommonItemListAdapter listAdapter = new CommonItemListAdapter(getActivity());
-        listAdapter.setData(AppSamplesStore.getFragmentSamples());
-        recyclerView.setAdapter(listAdapter);
-        mAdapter = listAdapter;
-        loadImages();
+    protected MvpPresenter createPresenter() {
+        return null;
     }
 
     private void loadImages() {
@@ -87,7 +84,7 @@ public class AgeraImageListFragment extends BaseVertialListFragment {
         public void update() {
             if (mImageRepo != null) {
                 ArrayList<ImageInfo> imageInfos = mImageRepo.get();
-                mAdapter.setData(imageInfos);
+                getAdapter().setData(imageInfos);
             }
         }
     };
@@ -118,5 +115,4 @@ public class AgeraImageListFragment extends BaseVertialListFragment {
                     return imageInfos;
                 }
             };
-
 }

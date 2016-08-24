@@ -28,5 +28,8 @@ dependencies {
     compile project(':core')
     compile 'com.yydcdut.sdlv:sdlv:0.5.4@aar'
     compile 'com.android.support:support-v4:23.4.0'
-    testCompile 'junit:junit:4.12'
+
+    testCompile dps.test.junit
+    testCompile dps.test.mockito
+    testCompile dps.test.robolectric
 }

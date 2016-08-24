@@ -1,0 +1,17 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/ds30"
+    tools:context="com.grass.fragment.DragFragment">
+
+    <TextView
+        android:id="@+id/get_douban_data"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:text="获取豆瓣top250电影的数据"
+        android:textColor="@android:color/white" />
+
+</FrameLayout>

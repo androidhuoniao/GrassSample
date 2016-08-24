@@ -4,8 +4,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import com.grass.R;
-import com.grass.core.base.adapter.CommonItemListAdapter;
 import com.grass.core.base.fragment.BaseVertialListFragment;
+import com.grass.core.base.mvp.MvpPresenter;
 import com.grass.core.event.EventOfOpenActivitySample;
 import com.grass.data.AppSamplesStore;
 import com.grass.recyclerview.decoration.VerticalListDivider;
@@ -21,14 +21,6 @@ public class MainSampleListFragment extends BaseVertialListFragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public MainSampleListFragment() {
-    }
-
-    @SuppressWarnings("unused")
-    public static MainSampleListFragment newInstance() {
-        MainSampleListFragment fragment = new MainSampleListFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -48,14 +40,12 @@ public class MainSampleListFragment extends BaseVertialListFragment {
         super.initRecycleView(recyclerView);
         Drawable dividerDrawable = getResources().getDrawable(R.drawable.vertical_divider);
         recyclerView.addItemDecoration(new VerticalListDivider(dividerDrawable));
+        getAdapter().setData(AppSamplesStore.getFragmentSamples());
     }
 
     @Override
-    public void initData(RecyclerView recyclerView) {
-        CommonItemListAdapter listAdapter = new CommonItemListAdapter(getActivity());
-        listAdapter.setData(AppSamplesStore.getFragmentSamples());
-        recyclerView.setAdapter(listAdapter);
-
+    protected MvpPresenter createPresenter() {
+        return null;
     }
 
     @Subscribe
