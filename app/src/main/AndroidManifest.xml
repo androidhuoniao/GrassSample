@@ -19,10 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.CircleSortRichTextActivity" />
         <activity android:name=".activity.DragListActivity" />
         <activity android:name=".activity.drag.DragNDropListActivity" />
+        <activity android:name=".activity.SeekBarActivity"></activity>
+        <activity android:name=".activity.PopupWindowActivity"></activity>
     </application>
 
 </manifest>
