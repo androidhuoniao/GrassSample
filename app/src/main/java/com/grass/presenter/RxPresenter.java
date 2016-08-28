@@ -8,7 +8,6 @@ import com.orhanobut.logger.Logger;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -36,8 +35,7 @@ public class RxPresenter {
                                 Logger.i(stringTimestamped.getValue());
                             }
                         }))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxHelper.<Timestamped<String>>io())
                 .filter(new Func1<Timestamped<String>, Boolean>() {
                     @Override
                     public Boolean call(Timestamped<String> stringTimestamped) {

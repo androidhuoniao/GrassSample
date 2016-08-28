@@ -13,7 +13,7 @@ import com.grass.R;
 import com.grass.adapter.item.ImageInfo;
 import com.grass.core.base.fragment.BaseVertialListFragment;
 import com.grass.core.base.mvp.MvpPresenter;
-import com.grass.data.AppSamplesStore;
+import com.grass.core.data.AppSamplesStore;
 import com.grass.mediastore.ImageItemInfo;
 import com.grass.mediastore.ImageStore;
 import com.grass.recyclerview.decoration.VerticalListDivider;

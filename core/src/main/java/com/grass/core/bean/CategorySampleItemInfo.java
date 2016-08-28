@@ -1,7 +1,4 @@
-package com.grass.adapter.item;
-
-import com.grass.core.bean.BaseSampleItemInfo;
-import com.grass.core.bean.SampleType;
+package com.grass.core.bean;
 
 /**
  * Created by grass on 15/11/18.

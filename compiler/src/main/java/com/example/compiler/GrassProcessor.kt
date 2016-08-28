@@ -11,6 +11,10 @@ import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.CodeBlock
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.TypeSpec
+import com.squareup.moshi.Moshi
+import java.io.File
+import java.net.URLClassLoader
+import java.util.zip.ZipFile
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Modifier
@@ -20,6 +24,7 @@ import javax.lang.model.type.MirroredTypeException
 import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
 import javax.tools.Diagnostic
+import javax.tools.StandardLocation
 import kotlin.properties.Delegates
 
 /**
@@ -28,10 +33,11 @@ import kotlin.properties.Delegates
 class GrassProcessor : AbstractProcessor() {
 
     companion object {
+        val FILE_NAME = "BINDING.json"
         val PACKAGE_NAME = "com.example"
         val COMMON_ITEM_FACTORY = ClassName.get("com.grass.core.base.adapter", "CommonItemFactory")
-        val APP_SAMPLE_STORE = ClassName.get("com.grass.data", "AppSamplesStore")
-        val CATEGORY_SAMPLE_ITEM_INFO = ClassName.get("com.grass.adapter.item", "CategorySampleItemInfo")
+        val APP_SAMPLE_STORE = ClassName.get("com.grass.core.data", "AppSamplesStore")
+        val CATEGORY_SAMPLE_ITEM_INFO = ClassName.get("com.grass.core.bean", "CategorySampleItemInfo")
     }
 
     var elementUtils: Elements by Delegates.notNull()
@@ -39,9 +45,13 @@ class GrassProcessor : AbstractProcessor() {
     var messanger: Messager by Delegates.notNull()
     var filer: Filer by Delegates.notNull()
 
+    val adapter = Moshi.Builder().build().adapter(BindingInfo::class.java)
+
     var round = 0
 
     val bindInfo = BindingInfo()
+
+    var isApplication = false
 
 
     override fun init(env: ProcessingEnvironment) {
@@ -50,6 +60,9 @@ class GrassProcessor : AbstractProcessor() {
         typeUtils = env.typeUtils
         messanger = env.messager
         filer = env.filer
+        isApplication = env.options["isApplication"] == "true"
+        val moduleName = env.options["moduleName"]
+        onWarning("isApplication " + isApplication + " moduleName " + moduleName)
     }
 
     override fun process(annotations: MutableSet<out TypeElement>, env: RoundEnvironment): Boolean {
@@ -67,6 +80,11 @@ class GrassProcessor : AbstractProcessor() {
         processBindItems(env)
         processBindParsers(env)
         processBindTests(env)
+        if (isApplication) {
+            readJarFile(FILE_NAME)
+        } else {
+            saveBindingInfo()
+        }
     }
 
     fun processBindItems(env: RoundEnvironment) {
@@ -187,6 +205,45 @@ class GrassProcessor : AbstractProcessor() {
     }
 
 
+    fun saveBindingInfo() {
+        onWarning("saveBindingInfo items : " + bindInfo.items.size)
+        onWarning("saveBindingInfo tests : " + bindInfo.tests.size)
+        onWarning("saveBindingInfo parsers : " + bindInfo.parsers.size)
+        if (listOf(bindInfo.items, bindInfo.tests, bindInfo.parsers).all { it.isEmpty() }) {
+            return;
+        }
+        var file = filer.createResource(StandardLocation.CLASS_OUTPUT, "", FILE_NAME)
+        onWarning("saveBindingInfo: " + file.name + " output: " + StandardLocation.CLASS_OUTPUT.toString() + " " +
+                "" + StandardLocation.CLASS_OUTPUT.name)
+        file.openWriter().use {
+            it.write(adapter.toJson(bindInfo))
+            it.flush()
+            it.close()
+        }
+    }
+
+    fun readJarFile(name: String): List<String> {
+        onWarning("=====================readJarFile is working======================")
+        val loader = javaClass.classLoader
+        val fooClass = GrassProcessor::class.java
+        onWarning("readJarFile: " + (fooClass == javaClass))
+        if (loader is URLClassLoader) {
+            var list = loader.urLs.map { File(it.file) }
+                    .filter {
+                        onWarning("it " + it.absolutePath)
+                        it.extension == "jar" && it.exists()
+                    }.map { ZipFile(it) }.filter { it.getEntry(name) != null }
+                    .map {
+                it.getInputStream(it.getEntry(name)).reader().use {
+                    it.readText()
+                }
+            }
+            return list;
+        }
+        return listOf()
+    }
+
+    //==============================================================================
     override fun getSupportedSourceVersion(): SourceVersion? {
         return SourceVersion.latest()
     }

@@ -4,7 +4,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import com.example.anno.BindItem;
 import com.grass.R;
-import com.grass.adapter.item.CategorySampleItemInfo;
+import com.grass.core.bean.CategorySampleItemInfo;
 import com.grass.core.base.adapter.CommonItemCreator;
 import com.grass.core.event.EventOfChangeFragment;
 import com.grass.core.event.EventOfOpenActivitySample;

@@ -1,8 +1,8 @@
-package com.grass.data;
+package com.grass.core.data;
 
 import java.util.ArrayList;
 
-import com.grass.adapter.item.CategorySampleItemInfo;
+import com.grass.core.bean.CategorySampleItemInfo;
 
 /**
  * Created by grass on 15/11/18.

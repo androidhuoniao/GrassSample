@@ -7,7 +7,7 @@ import com.grass.R;
 import com.grass.core.base.fragment.BaseVertialListFragment;
 import com.grass.core.base.mvp.MvpPresenter;
 import com.grass.core.event.EventOfOpenActivitySample;
-import com.grass.data.AppSamplesStore;
+import com.grass.core.data.AppSamplesStore;
 import com.grass.recyclerview.decoration.VerticalListDivider;
 
 import android.content.Intent;
