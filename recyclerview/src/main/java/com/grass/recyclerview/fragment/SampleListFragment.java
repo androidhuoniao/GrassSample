@@ -3,6 +3,7 @@ package com.grass.recyclerview.fragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import com.example.anno.BindTestCase;
 import com.grass.core.event.EventOfOpenActivitySample;
 import com.grass.recyclerview.R;
 import com.grass.recyclerview.fragment.data.SampleStore;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+@BindTestCase(type = 1, name = "SampleListFragment", des = "11111")
 public class SampleListFragment extends Fragment {
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

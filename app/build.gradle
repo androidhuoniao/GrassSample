@@ -33,3 +33,10 @@ dependencies {
     testCompile dps.test.mockito
     testCompile dps.test.robolectric
 }
+
+apt {
+    arguments {
+        moduleName project.name
+        isApplication "true"
+    }
+}
