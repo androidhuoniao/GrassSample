@@ -32,8 +32,35 @@ public class SeekBarActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Logger.i("StopTrackingTouch");
+                int toProgress = computeActualProgress(seekBar);
+                seekBar.setProgress(toProgress);
             }
         });
 
+    }
+
+    private int computeActualProgress(SeekBar seekBar) {
+        int maxProgress = seekBar.getMax();
+        int progress = seekBar.getProgress();
+        int middle = maxProgress / 2;
+        int toProgress = 0;
+        if (progress <= middle) {
+            int offsetA = progress;
+            int offsetB = Math.abs(progress - middle);
+            if (offsetA < offsetB) {
+                toProgress = 0;
+            } else {
+                toProgress = middle;
+            }
+        } else if (progress > middle && progress <= maxProgress) {
+            int offsetA = progress - middle;
+            int offsetB = Math.abs(progress - maxProgress);
+            if (offsetA < offsetB) {
+                toProgress = middle;
+            } else {
+                toProgress = maxProgress;
+            }
+        }
+        return toProgress;
     }
 }

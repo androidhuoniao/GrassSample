@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/container_ll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<EditText-->
+        <!--android:id="@+id/content_edt"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/makeup"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/ds100"-->
+        <!--android:layout_marginBottom="@dimen/ds20"-->
+        <!--android:background="@android:color/darker_gray"-->
+        <!--android:gravity="center"-->
+        <!--android:text="自动排版"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="@dimen/fontsize34" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/validate_tv"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/ds100"-->
+        <!--android:layout_marginBottom="@dimen/ds20"-->
+        <!--android:background="@android:color/darker_gray"-->
+        <!--android:gravity="center"-->
+        <!--android:text="检查格式"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="@dimen/fontsize34" />-->
+</LinearLayout>
