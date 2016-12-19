@@ -1,7 +1,7 @@
 ext {
     kotlin_version = "1.0.3"
     support_version = "23.1.1"
-    build_version = "2.1.0"
+    build_version = "2.2.2"
     apt_version = "1.8"
 
     dps = [
