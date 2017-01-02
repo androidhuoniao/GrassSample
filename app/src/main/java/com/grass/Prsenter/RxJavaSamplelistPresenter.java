@@ -2,6 +2,8 @@ package com.grass.Prsenter;
 
 import android.content.Context;
 
+import com.grass.adapter.item.rxjava.RxConcatInfo;
+import com.grass.adapter.item.rxjava.RxFlatMapInfo;
 import com.grass.adapter.item.rxjava.RxTimerInfo;
 import com.grass.core.base.adapter.CommonItemInfo;
 import com.grass.core.base.mvp.BaseListPresenter;
@@ -30,6 +32,8 @@ public class RxJavaSamplelistPresenter extends BaseListPresenter<RxJavaSampleLis
     private List<CommonItemInfo> createData() {
         ArrayList<CommonItemInfo> infos = new ArrayList<>();
         infos.add(new RxTimerInfo());
+        infos.add(new RxFlatMapInfo());
+        infos.add(new RxConcatInfo());
         return infos;
     }
 
