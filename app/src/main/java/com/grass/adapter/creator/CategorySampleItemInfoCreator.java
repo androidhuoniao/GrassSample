@@ -1,6 +1,11 @@
 package com.grass.adapter.creator;
 
-import org.greenrobot.eventbus.EventBus;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.anno.BindItem;
 import com.grass.R;
@@ -9,12 +14,7 @@ import com.grass.core.base.adapter.CommonItemCreator;
 import com.grass.core.event.EventOfChangeFragment;
 import com.grass.core.event.EventOfOpenActivitySample;
 
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by grass on 16/7/10.
